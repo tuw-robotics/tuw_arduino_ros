@@ -140,7 +140,7 @@ void RCCarNode::publish () {
     measurement_iws_.header.seq++;
     measurement_iws_.header.stamp = ros::Time::now();
     measurement_iws_.steering[0] = actuators_.rad*100.0f;
-    measurement_iws_.revolute[1] = actuators_.rps;
+    measurement_iws_.revolute[1] = actuators_.rps*-1.0f; // direction seems inverse to rev
 
     float achsabstand = 0.26;
 
