@@ -1,6 +1,7 @@
 #ifndef __TUW_RCCAR_NODE_H
 #define __TUW_RCCAR_NODE_H
 
+#include <cmath>
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Pose2D.h>
@@ -39,6 +40,7 @@ private:
     dynamic_reconfigure::Server<tuw_rccar::RCCarConfig>::CallbackType reconfigureFnc_;  // parameter server stuff
 
     tuw_nav_msgs::JointsIWS measurement_iws_; // Message for IWS Publishing.
+    double ACTUATOR_RPS_EPS = 0.0001;
 
 };
 
