@@ -150,6 +150,7 @@ void RCCarNode::publish () {
     cmd.linear.y = 0.;
     cmd.angular.z = 1/achsabstand * vel_tmp * sin(angle_tmp);
     // publishes motion command
+    publisher_iws_.publish(measurement_iws_);
     publisher_twist_.publish ( cmd );
 
 
