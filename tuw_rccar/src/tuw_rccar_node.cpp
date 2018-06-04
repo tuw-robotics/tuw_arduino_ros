@@ -139,8 +139,8 @@ void RCCarNode::publish () {
 
     measurement_iws_.header.seq++;
     measurement_iws_.header.stamp = ros::Time::now();
-    measurement_iws_.steering[0] = angle_tmp;
-    measurement_iws_.revolute[1] = vel_tmp;
+    measurement_iws_.steering[0] = actuators_.rad*100.0f;
+    measurement_iws_.revolute[1] = actuators_.rps;
 
     float achsabstand = 0.26;
 
