@@ -37,12 +37,22 @@ RCCarNode::RCCarNode ( ros::NodeHandle & n )
     subscriber_ = n.subscribe("joint_cmds", 2, &RCCarNode::callbackWrite, this);
     publisher_twist_ = n.advertise<geometry_msgs::Twist> ( "rccar_read", 1 );
     publisher_imu_ = n.advertise<sensor_msgs::Imu> ( "rccar_imu", 1 );
+    publisher_iws_ = n.advertise<tuw_nav_msgs::JointsIWS>("joint_measures",1);
 
     servprov_ = n.advertiseService("config_read", &RCCarNode::callbackServiceConfig, this);
     servprov_pid_ = n.advertiseService("pid_controller", &RCCarNode::callbackServicePIDController, this);
 
     reconfigureFnc_ = boost::bind ( &RCCarNode::callbackConfigRCCar, this,  _1, _2 );
     reconfigureServer_.setCallback ( reconfigureFnc_ );
+
+    measurement_iws_.header.seq = 0;
+    measurement_iws_.header.stamp = ros::Time::now();
+    measurement_iws_.type_steering = "cmd_position";
+    measurement_iws_.type_revolute = "cmd_velocity";
+    measurement_iws_.revolute.resize (2);
+    measurement_iws_.steering.resize (2);
+    measurement_iws_.revolute[0] = std::nan("1");
+    measurement_iws_.steering[1] = std::nan("1");
 }
 
 //bool RCCarNode::callbackServiceConfig ( std_srvs::Empty::Request& request, std_srvs::Empty::Response& response ) {
@@ -126,6 +136,11 @@ void RCCarNode::publish () {
 
     double vel_tmp = (actuators_.rps/50.0f) * -0.1277f;
     double angle_tmp = actuators_.rad;
+
+    measurement_iws_.header.seq++;
+    measurement_iws_.header.stamp = ros::Time::now();
+    measurement_iws_.steering[0] = angle_tmp;
+    measurement_iws_.revolute[1] = vel_tmp;
 
     float achsabstand = 0.26;
 

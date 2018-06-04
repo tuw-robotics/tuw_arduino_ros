@@ -26,6 +26,7 @@ private:
     ros::Subscriber subscriber_;       // Subscriber to ...
     ros::Publisher publisher_twist_;         // Publisher for ...
     ros::Publisher publisher_imu_;         // Publisher for ...
+    ros::Publisher publisher_iws_;      // Publisher for ...
     ros::ServiceServer servprov_;      // Service Provider for ...
     ros::ServiceServer servprov_pid_;      // Service Provider for PID Controller
     void callbackWrite ( const tuw_nav_msgs::JointsIWS &msg );                            // callback function to execute on incoming sensor data
@@ -36,6 +37,8 @@ private:
 
     dynamic_reconfigure::Server<tuw_rccar::RCCarConfig> reconfigureServer_;             // parameter server stuff
     dynamic_reconfigure::Server<tuw_rccar::RCCarConfig>::CallbackType reconfigureFnc_;  // parameter server stuff
+
+    tuw_nav_msgs::JointsIWS measurement_iws_; // Message for IWS Publishing.
 
 };
 

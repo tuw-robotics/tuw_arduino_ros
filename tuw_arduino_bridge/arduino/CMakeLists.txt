@@ -7,4 +7,4 @@ include_directories(include)
   add_subdirectory(firmware)
 #endif()
 
-add_subdirectory(linux)
+#add_subdirectory(linux)
