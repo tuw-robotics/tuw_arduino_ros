@@ -138,11 +138,12 @@ void RCCarNode::publish () {
     double vel_tmp = (actuator_rps/50.0f) * -0.1277f;
     double angle_tmp = actuators_.rad;
 
+    double wheel_radius = wheel_diameter_ /2.0;
     measurement_iws_.header.seq++;
     measurement_iws_.header.stamp = ros::Time::now();
     // robot cant turn on the spot
-    measurement_iws_.steering[0] = std::abs(actuator_rps) > ACTUATOR_RPS_EPS ? actuators_.rad*100.0f : 0.0f;
-    measurement_iws_.revolute[1] = actuator_rps*-1.0f; // direction seems inverse to rev
+    measurement_iws_.steering[0] = std::abs(actuator_rps) > ACTUATOR_RPS_EPS ? actuators_.rad*100.0 : 0.0;
+    measurement_iws_.revolute[1] = wheel_radius*actuator_rps*-1.0f; // direction seems inverse to rev
 
     float achsabstand = 0.26;
 
