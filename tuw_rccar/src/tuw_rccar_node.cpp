@@ -112,7 +112,8 @@ void RCCarNode::callbackWrite ( const tuw_nav_msgs::JointsIWS &msg ) {
       ROS_ERROR("Joint cmd incorrect number of joints: %zu is not supported expected are two!", msg.steering.size());
     }
     if((msg.revolute[0] == 0.0) || std::isnan(msg.revolute[0]) ){
-      actuators_.rad = msg.steering[0] * 0.26f;
+      //actuators_.rad = msg.steering[0] * 0.26f;
+      actuators_.rad = msg.steering[0];
     } else {
       ROS_ERROR("Joint cmd revolute[0] must be zero or NAN");
     }
@@ -141,7 +142,8 @@ void RCCarNode::publish () {
     measurement_iws_.header.seq++;
     measurement_iws_.header.stamp = ros::Time::now();
     // robot cant turn on the spot
-    measurement_iws_.steering[0] = std::abs(actuator_rps) > ACTUATOR_RPS_EPS ? actuators_.rad*100.0 : 0.0;
+    measurement_iws_.steering[0] = std::abs(actuator_rps) > ACTUATOR_RPS_EPS ? actuators_.rad : 0.0;
+    //measurement_iws_.steering[0] = std::abs(actuator_rps) > ACTUATOR_RPS_EPS ? actuators_.rad*100.0 : 0.0;
     measurement_iws_.revolute[1] = (100.0*wheel_diameter_*M_PI*actuator_rps*-1.0f)/60.0; // direction seems inverse to rev
 
     float achsabstand = 0.26;
