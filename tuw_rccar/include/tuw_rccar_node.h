@@ -40,7 +40,7 @@ private:
     dynamic_reconfigure::Server<tuw_rccar::RCCarConfig>::CallbackType reconfigureFnc_;  // parameter server stuff
 
     tuw_nav_msgs::JointsIWS measurement_iws_; // Message for IWS Publishing.
-    double wheel_diameter_ = 0.065;
+    double wheel_diameter_ = 0.07;
     double ACTUATOR_RPS_EPS = 0.0001;
 
 };
