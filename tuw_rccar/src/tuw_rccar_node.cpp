@@ -144,7 +144,7 @@ void RCCarNode::publish () {
     // robot cant turn on the spot
     measurement_iws_.steering[0] = std::abs(actuator_rps) > ACTUATOR_RPS_EPS ? actuators_.rad *0.44: 0.0;
     //measurement_iws_.steering[0] = std::abs(actuator_rps) > ACTUATOR_RPS_EPS ? actuators_.rad*100.0 : 0.0;
-    measurement_iws_.revolute[1] = (100.0*wheel_diameter_*M_PI*actuator_rps*-1.0f)/60.0; // direction seems inverse to rev
+    measurement_iws_.revolute[1] = (147.0*wheel_diameter_*M_PI*actuator_rps*-1.0f)/60.0; // direction seems inverse to rev
 
     float achsabstand = 0.26;
 
