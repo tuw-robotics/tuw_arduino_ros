@@ -142,7 +142,7 @@ void RCCarNode::publish () {
     measurement_iws_.header.seq++;
     measurement_iws_.header.stamp = ros::Time::now();
     // robot cant turn on the spot
-    measurement_iws_.steering[0] = std::abs(actuator_rps) > ACTUATOR_RPS_EPS ? actuators_.rad : 0.0;
+    measurement_iws_.steering[0] = std::abs(actuator_rps) > ACTUATOR_RPS_EPS ? actuators_.rad *M_PI/4.0f: 0.0;
     //measurement_iws_.steering[0] = std::abs(actuator_rps) > ACTUATOR_RPS_EPS ? actuators_.rad*100.0 : 0.0;
     measurement_iws_.revolute[1] = (100.0*wheel_diameter_*M_PI*actuator_rps*-1.0f)/60.0; // direction seems inverse to rev
 
