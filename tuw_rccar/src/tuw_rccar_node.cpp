@@ -118,8 +118,7 @@ void RCCarNode::callbackWrite ( const tuw_nav_msgs::JointsIWS &msg ) {
       ROS_ERROR("Joint cmd revolute[0] must be zero or NAN");
     }
     if((msg.steering[1] == 0.0) || std::isnan(msg.steering[1]) ){
-      //actuators_.rps = msg.revolute[1] * -50; // Ackermann commands
-      actuators_.rps = msg.revolute[1]*50.0; // Ackermann commands
+      actuators_.rps = msg.revolute[1] * -50; // Ackermann commands
     } else {
       ROS_ERROR("Joint cmd steering[1] must be zero or NAN");
     }
@@ -145,8 +144,7 @@ void RCCarNode::publish () {
     // robot cant turn on the spot
     measurement_iws_.steering[0] = std::abs(actuator_rps) > ACTUATOR_RPS_EPS ? actuators_.rad : 0.0;
     //measurement_iws_.steering[0] = std::abs(actuator_rps) > ACTUATOR_RPS_EPS ? actuators_.rad*100.0 : 0.0;
-    //measurement_iws_.revolute[1] = (100.0*wheel_diameter_*M_PI*actuator_rps*-1.0f)/60.0; // direction seems inverse to rev
-    measurement_iws_.revolute[1] = (100.0*wheel_diameter_*M_PI*actuator_rps)/60.0; // direction seems inverse to rev
+    measurement_iws_.revolute[1] = (100.0*wheel_diameter_*M_PI*actuator_rps*-1.0f)/60.0; // direction seems inverse to rev
 
     float achsabstand = 0.26;
 
