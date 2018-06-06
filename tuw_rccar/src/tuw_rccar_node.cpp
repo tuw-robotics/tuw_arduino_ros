@@ -119,7 +119,7 @@ void RCCarNode::callbackWrite ( const tuw_nav_msgs::JointsIWS &msg ) {
     }
     if((msg.steering[1] == 0.0) || std::isnan(msg.steering[1]) ){
       //actuators_.rps = msg.revolute[1] * -50; // Ackermann commands
-      actuators_.rps = msg.revolute[1]; // Ackermann commands
+      actuators_.rps = msg.revolute[1]*50.0; // Ackermann commands
     } else {
       ROS_ERROR("Joint cmd steering[1] must be zero or NAN");
     }
